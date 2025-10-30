@@ -1,6 +1,7 @@
 #include "encoders.h"
 
-Encoder* encoderInstance = nullptr;
+Encoder* leftEncoderInstance = nullptr;
+Encoder* rightEncoderInstance = nullptr;
 
 Encoder::Encoder(uint8_t pinA, uint8_t pinB)
     : _pinA(pinA), _pinB(pinB), _count(0), _lastTime(0), _lastCount(0) {}
@@ -8,11 +9,14 @@ Encoder::Encoder(uint8_t pinA, uint8_t pinB)
 void Encoder::begin() {
     pinMode(_pinA, INPUT_PULLUP);
     pinMode(_pinB, INPUT_PULLUP);
-    encoderInstance = this;
-    attachInterrupt(digitalPinToInterrupt(_pinA), handleInterruptA0, CHANGE);
+   
+   //Determine which encoder it is based on pins
+   if (_pinA == LEFT_ENC_A)
+
+
 }
 
-void Encoder::handleInterruptA() {
+void Encoder::handleInterruptA0() {
     if (encoderInstance != nullptr) encoderInstance->update();
 }
 

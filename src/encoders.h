@@ -6,7 +6,7 @@
 
 class Encoder {
 public: 
-    //Specify pins
+    
     Encoder (uint8_t pinA, uint8_t pinB ); // Constructor
     void begin ();
     void update ();
@@ -18,11 +18,14 @@ private:
     volatile long _count;
     unsigned long _lastTime;
     long _lastCount;
-    static void handleInterruptA0();
+
+    static void handleLeftInterrupt();
+    static void handleRightInterrupt();
 
 };
 
-extern Encoder* encoderInstance;
+extern Encoder* leftEncoderInstance;
+extern Encoder* rightEncoderInstance;
 
 
 
