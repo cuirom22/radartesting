@@ -1,13 +1,21 @@
 #include <Arduino.h>
+#include <WiFi.h>
+#include <WiFiUdp.h>
 #include "config.h"
 #include "ultrasonic.h"
 #include "encoders.h"
 #include "Motor.h"
 #include "ultrasonic.h"
 #include "Odometry.h"
+WiFiUDP Udp;
+
 //heyyy
 
 
+const char* ssid = "Irving's iPhone";
+const char* pass = "romero22";
+const char* hostIP = "10.110.253.18";   // <-- your PC IP
+const uint16_t hostPort = 5005;
 
 
 Ultrasonic frontUS(US1_TRIG, US1_ECHO);
@@ -25,7 +33,12 @@ Odometry odo(&leftEnc, &rightEnc);
 void setup() {
   Serial.begin(115200);
   Serial.println("Robot System Initializing...");
-// Encoder Setup
+  //wifi stuff
+  WiFi.begin(ssid, pass);
+  while (WiFi.status() != WL_CONNECTED) { delay(200); Serial.print("."); }
+  Serial.println("WiFi connected");
+  Udp.begin(hostPort); // optional for send-only
+  // Encoder Setup
   leftEnc.begin();
   rightEnc.begin();
 // Ultrasonic setup
@@ -44,7 +57,14 @@ void loop() {
 
   // update odo sensors
   odo.update();
-
+  //wifi stuff
+  char buf[128];
+  snprintf(buf, sizeof(buf), "%f,%f,%f,%f,%f,%f\n",
+           odo.getX(), odo.getY(), odo.getTheta(),
+           frontUS.getDistanceCM(), leftUS.getDistanceCM(), rightUS.getDistanceCM());
+  Udp.beginPacket(hostIP, hostPort);
+  Udp.write((uint8_t*)buf, strlen(buf));
+  Udp.endPacket();
 
 
   // --- Read sensors ---
