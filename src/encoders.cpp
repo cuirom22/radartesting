@@ -11,13 +11,25 @@ void Encoder::begin() {
     pinMode(_pinB, INPUT_PULLUP);
    
    //Determine which encoder it is based on pins
-   if (_pinA == LEFT_ENC_A)
+   if (_pinA = L_ENCA) {
+    rightEncoderInstance = this;
+    attachInterrupt(digitalPinToInterrupt(_pinA), handleLeftInterrupt, CHANGE);
+   }
+
+   if (_pinA = R_ENCA) {
+    rightEncoderInstance = this;
+    attachInterrupt(digitalPinToInterrupt(_pinA), handleRightInterrupt, CHANGE);
+   }
 
 
 }
 
-void Encoder::handleInterruptA0() {
-    if (encoderInstance != nullptr) encoderInstance->update();
+void Encoder::handleLeftInterrupt() {
+    if (leftEncoderInstance != nullptr) leftEncoderInstance->update();
+}
+
+void Encoder::handleRightInterrupt() {
+    if (rightEncoderInstance != nullptr) rightEncoderInstance->update();
 }
 
 void Encoder::update() {
@@ -25,7 +37,7 @@ void Encoder::update() {
     int b = digitalRead(_pinB);
     if (a==b) _count++;
     else _count--;
-
+//what
 }
 
 long Encoder::getCount() {
