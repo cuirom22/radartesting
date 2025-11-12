@@ -1,7 +1,7 @@
 // --- Motor 1 Pins ---
 #define M1_PWM   4
-#define M1_INA   16
-#define M1_INB   17
+#define M1_INA   17
+#define M1_INB   16
 #define M1_EN    36   // optional: tie to 5V if not connected to ESP32
 
 // --- Motor 2 Pins ---
@@ -11,17 +11,17 @@
 #define M2_EN    37   // optional: tie to 5V if not connected to ESP32
 
 // Encoder Pins
-#define L_ENCA  10
-#define L_ENCB  11 
-#define R_ENCA  12
-#define R_ENCB  13
+#define L_ENCA  1
+#define L_ENCB  2 
+#define R_ENCA  10
+#define R_ENCB  11
 
 // Ultrasonic Pins
-#define US1_TRIG   2
+#define US1_TRIG   6
 #define US1_ECHO   3
 #define US2_TRIG   14
 #define US2_ECHO   15
-#define US3_TRIG   20
+#define US3_TRIG   9
 #define US3_ECHO   21
 
 // For Odometry (MUST MEASURE)
