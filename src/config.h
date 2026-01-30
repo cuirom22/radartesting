@@ -23,6 +23,10 @@
 #define US2_ECHO   15
 #define US3_TRIG  47
 #define US3_ECHO   21
+#define US4_TRIG 12
+#define US4_ECHO 13
+#define US5_TRIG 8
+#define US5_ECHO 9
 
 // For Odometry (MUST MEASURE)
 #define WHEEL_DIAMETER_CM   6.5    // your wheel diameter

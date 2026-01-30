@@ -12,6 +12,7 @@ public:
     float getX();            // cm
     float getY();            // cm
     float getTheta();        // radians
+    float getSpeedCms();
 
 private:
     Encoder* _leftEnc;
@@ -19,6 +20,9 @@ private:
     long _prevLeft;
     long _prevRight;
     float _x, _y, _theta;
+    unsigned long _lastUpdateMs;
+    float _vCms;          // forward speed cm/s
+
 };
 
 #endif
